@@ -36,7 +36,7 @@ void ABaseCharacter::CalculateHealth(float delta)
 {
 	Health += delta;
 	CalculateDead();
-	GEngine->AddOnScreenDebugMessage(-1, 15, FColor::White, FString::Printf(TEXT("Health: %06f"), Health));
+	GEngine->AddOnScreenDebugMessage(-1, 3, FColor::White, FString::Printf(TEXT("Health: %06f"), Health));
 }
 
 void ABaseCharacter::CalculateDead()
@@ -44,6 +44,7 @@ void ABaseCharacter::CalculateDead()
 	if (Health <= 0)
 	{
 		IsDead = true;
+		OnCharacterDied.Broadcast();
 	}
 	else
 	{

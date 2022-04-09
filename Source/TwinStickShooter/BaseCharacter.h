@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "BaseCharacter.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FCharacterDiedEvent);
+
 UCLASS(Blueprintable)
 class TWINSTICKSHOOTER_API ABaseCharacter : public ACharacter
 {
@@ -17,6 +19,9 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "Base Character")
 	bool IsDead = false;
+
+	UPROPERTY(BlueprintAssignable, VisibleAnywhere)
+	FCharacterDiedEvent OnCharacterDied;
 
 public:
 	virtual void CalculateDead();
