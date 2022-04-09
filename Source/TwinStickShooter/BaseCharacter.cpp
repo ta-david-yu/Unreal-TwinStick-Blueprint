@@ -36,7 +36,6 @@ void ABaseCharacter::CalculateHealth(float delta)
 {
 	Health += delta;
 	CalculateDead();
-	GEngine->AddOnScreenDebugMessage(-1, 3, FColor::White, FString::Printf(TEXT("Health: %06f"), Health));
 }
 
 void ABaseCharacter::CalculateDead()
