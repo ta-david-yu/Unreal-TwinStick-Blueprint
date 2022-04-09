@@ -15,6 +15,9 @@ AEnemySpawner::AEnemySpawner()
 
 	SpawnVolume = CreateDefaultSubobject<UBoxComponent>(FName("Spawn Volume"));
 
+
+	SetRootComponent(RootComponent);
+	SpawnVolume->SetupAttachment(RootComponent);
 }
 
 // Called when the game starts or when spawned
