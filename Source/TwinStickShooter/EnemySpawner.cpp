@@ -45,18 +45,12 @@ APawn* AEnemySpawner::SpawnEnemy()
 	auto volumeExtent = SpawnVolume->GetScaledBoxExtent();
 	auto newSpawnPosition = UKismetMathLibrary::RandomPointInBoundingBox(volumeWorldLocation, volumeExtent);
 
-	APawn* const newSpawnedEnemy = Cast<APawn>(GetWorld()->SpawnActor(SpawnPawnType, &newSpawnPosition));
+	ABaseCharacter* const newSpawnedEnemy = Cast<ABaseCharacter>(GetWorld()->SpawnActor(SpawnPawnType, &newSpawnPosition));
 	if (newSpawnedEnemy)
 	{
+		m_EnemyCounter++;
 		newSpawnedEnemy->SpawnDefaultController();
-		
-		// This is bad code, but I don't care
-		auto baseCharacter = Cast<ABaseCharacter>(newSpawnedEnemy);
-		if (baseCharacter)
-		{
-			m_EnemyCounter++;
-			baseCharacter->OnCharacterDied.AddDynamic(this, &AEnemySpawner::HandleOnEnemyDied);
-		}
+		newSpawnedEnemy->OnCharacterDied.AddDynamic(this, &AEnemySpawner::HandleOnEnemyDied);
 	}
 
 	return newSpawnedEnemy;
