@@ -53,6 +53,8 @@ APawn* AEnemySpawner::SpawnEnemy()
 		newSpawnedEnemy->OnCharacterDied.AddDynamic(this, &AEnemySpawner::HandleOnEnemyDied);
 	}
 
+	GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Blue, TEXT("Spawner: spawn new enemy!"));
+
 	return newSpawnedEnemy;
 }
 
