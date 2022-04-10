@@ -8,19 +8,10 @@
 #include "BaseCharacter.h"
 #include "TwinStickMode.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCharcterEvent, ABaseCharacter*, character);
-
 UCLASS()
 class TWINSTICKSHOOTER_API ATwinStickMode : public AGameModeBase
 {
 	GENERATED_BODY()
-
-public:
-	UPROPERTY(BlueprintAssignable, VisibleAnywhere)
-	FCharcterEvent OnNewCharcterSpawned;
-
-	UPROPERTY(BlueprintAssignable, VisibleAnywhere)
-	FCharcterEvent OnCurrentCharcterSet;
 
 protected:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "TwinStickMode")

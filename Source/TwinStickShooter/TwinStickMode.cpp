@@ -38,11 +38,16 @@ void ATwinStickMode::SetCurrentPlayerCharacter(ABaseCharacter* character)
 {
 	m_CurrentPlayerCharacter = character;
 	m_CurrentPlayerCharacter->OnCharacterDied.AddDynamic(this, &ATwinStickMode::HandleOnPlayerCharacterDied);
-	OnCurrentCharcterSet.Broadcast(character);
 }
 
 void ATwinStickMode::RespawnPlayer()
 {
+	if (m_PlayerCharacterType.Get() == nullptr)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Red, TEXT("Character Type is None, No player is spawned"));
+		return;
+	}
+
 	UWorld* world = GetWorld();
 	int playerIndex = 0;
 	APlayerController* playerController = UGameplayStatics::GetPlayerController(world, playerIndex);
@@ -51,22 +56,11 @@ void ATwinStickMode::RespawnPlayer()
 	AActor* playerStartActor = FindPlayerStart(playerController);
 	FTransform playerStartTransform = playerStartActor->GetTransform();
 
-	FActorSpawnParameters spawnParams { };
+	FActorSpawnParameters spawnParams{ };
 	spawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
-
 	ABaseCharacter* newPlayerCharacter = Cast<ABaseCharacter>(GetWorld()->SpawnActor(m_PlayerCharacterType, &playerStartTransform, spawnParams));
-	OnNewCharcterSpawned.Broadcast(newPlayerCharacter);
 
 	// Posses
-	if (playerController)
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Yellow, TEXT("Controller is not null"));
-	}
-	else
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Yellow, TEXT("Controller is null"));
-	}
-
 	playerController->Possess(newPlayerCharacter);
 
 	// Set to current
