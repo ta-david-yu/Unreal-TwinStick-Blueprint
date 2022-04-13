@@ -8,7 +8,7 @@ void APlayerBaseController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 
-	InputComponent->BindAction("Suicide", IE_Pressed, this, &APlayerBaseController::HandleOnSuicideActionPressed);
+	InputComponent->BindAction(TEXT("Suicide"), IE_Pressed, this, &APlayerBaseController::HandleOnSuicideActionPressed);
 }
 
 void APlayerBaseController::HandleOnSuicideActionPressed()
