@@ -15,11 +15,18 @@ void ATwinStickMode::Tick(float deltaTime)
 {
 	Super::Tick(deltaTime);
 
+	m_TimePassed += deltaTime;
+
 	m_SpawnEnemyTimer += deltaTime;
 	if (m_SpawnEnemyTimer >= m_EnemySpawnInterval)
 	{
 		m_SpawnEnemyTimer -= m_EnemySpawnInterval;
-		TrySpawnEnemy();
+		ABaseCharacter* enemyCharacter = Cast<ABaseCharacter>(TrySpawnEnemy());
+
+		if (enemyCharacter->IsValidLowLevel())
+		{
+			enemyCharacter->OnCharacterDied.AddDynamic(this, &ATwinStickMode::HandleOnEnemyDied);
+		}
 	}
 }
 
@@ -77,4 +84,13 @@ void ATwinStickMode::HandleOnPlayerCharacterDied()
 
 	// Respawn player
 	RespawnPlayer();
+
+	m_PlayerDeathCount++;
+	GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Yellow, FString::Printf(TEXT("DeathCount: %d"), m_PlayerDeathCount));
+}
+
+void ATwinStickMode::HandleOnEnemyDied()
+{
+	m_Score += m_ScorePerEnemyKill;
+	GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Yellow, FString::Printf(TEXT("Score: %"), m_PlayerDeathCount));
 }

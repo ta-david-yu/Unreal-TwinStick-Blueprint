@@ -26,6 +26,6 @@ class TWINSTICKSHOOTER_API IUsable
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
-	void UseBy(ICanUseItem* canUseItem);
-	void UseBy(const TScriptInterface<ICanUseItem>& canUseItem);
+	bool UseBy(ICanUseItem* canUseItem);
+	bool UseBy(const TScriptInterface<ICanUseItem>& canUseItem);
 };

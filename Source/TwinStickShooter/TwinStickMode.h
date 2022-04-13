@@ -25,6 +25,18 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "TwinStickMode")
 	AEnemySpawner* m_EnemySpawner = nullptr;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category ="TwinStickMode")
+	float m_ScorePerEnemyKill = 50;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category ="TwinStickMode|Statistics")
+	float m_Score = 0;
+	
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category ="TwinStickMode|Statistics")
+	float m_TimePassed = 0;
+	
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category ="TwinStickMode|Statistics")
+	int m_PlayerDeathCount = 0;
 
 private:
 	float m_SpawnEnemyTimer = 0.0f;
@@ -43,11 +55,14 @@ protected:
 
 	UFUNCTION(BlueprintCallable)
 	void SetCurrentPlayerCharacter(ABaseCharacter* character);
-
+	
 	UFUNCTION(BlueprintCallable)
 	void RespawnPlayer();
 
 private:
 	UFUNCTION()
 	void HandleOnPlayerCharacterDied();
+
+	UFUNCTION()
+	void HandleOnEnemyDied();
 };
