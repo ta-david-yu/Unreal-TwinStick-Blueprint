@@ -52,6 +52,8 @@ void APlayerBaseController::PauseGame()
 	SetInputMode(FInputModeGameAndUI());
 	UGameplayStatics::SetGamePaused(GetWorld(), true);
 	bShowMouseCursor = true;
+
+	OnPaused.Broadcast();
 }
 
 void APlayerBaseController::ResumeGame()
@@ -66,4 +68,6 @@ void APlayerBaseController::ResumeGame()
 	SetInputMode(FInputModeGameOnly());
 	UGameplayStatics::SetGamePaused(GetWorld(), false);
 	bShowMouseCursor = false;
+
+	OnResumed.Broadcast();
 }

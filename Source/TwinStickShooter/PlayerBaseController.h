@@ -7,6 +7,8 @@
 #include "Blueprint/UserWidget.h"
 #include "PlayerBaseController.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FPauseEvent);
+
 /**
  * 
  */
@@ -23,6 +25,12 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void ResumeGame();
+
+	UPROPERTY(BlueprintAssignable, VisibleAnywhere)
+	FPauseEvent OnPaused;
+	
+	UPROPERTY(BlueprintAssignable, VisibleAnywhere)
+	FPauseEvent OnResumed;
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
