@@ -35,6 +35,7 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 void ABaseCharacter::CalculateHealth(float delta)
 {
 	Health += delta;
+	OnHealthChanged.Broadcast(Health);
 	CalculateDead();
 }
 

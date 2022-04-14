@@ -7,6 +7,7 @@
 #include "BaseCharacter.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FCharacterDiedEvent);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FHealthChangedEvent, float, NewHealth);
 
 UCLASS(Blueprintable)
 class TWINSTICKSHOOTER_API ABaseCharacter : public ACharacter
@@ -22,6 +23,9 @@ public:
 
 	UPROPERTY(BlueprintAssignable, VisibleAnywhere)
 	FCharacterDiedEvent OnCharacterDied;
+
+	UPROPERTY(BlueprintAssignable, VisibleAnywhere)
+	FHealthChangedEvent OnHealthChanged;
 
 public:
 	virtual void CalculateDead();

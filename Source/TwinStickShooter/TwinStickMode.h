@@ -59,6 +59,12 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void RespawnPlayer();
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnNewCurrentPlayerCharacterSet(ABaseCharacter* newCharacter);
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnScoreChanged(float newScore);
+
 private:
 	UFUNCTION()
 	void HandleOnPlayerCharacterDied();

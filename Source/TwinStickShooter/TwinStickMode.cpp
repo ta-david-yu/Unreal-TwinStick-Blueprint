@@ -45,6 +45,7 @@ void ATwinStickMode::SetCurrentPlayerCharacter(ABaseCharacter* character)
 {
 	m_CurrentPlayerCharacter = character;
 	m_CurrentPlayerCharacter->OnCharacterDied.AddDynamic(this, &ATwinStickMode::HandleOnPlayerCharacterDied);
+	OnNewCurrentPlayerCharacterSet(m_CurrentPlayerCharacter);
 }
 
 void ATwinStickMode::RespawnPlayer()
@@ -92,5 +93,6 @@ void ATwinStickMode::HandleOnPlayerCharacterDied()
 void ATwinStickMode::HandleOnEnemyDied()
 {
 	m_Score += m_ScorePerEnemyKill;
+	OnScoreChanged(m_Score);
 	GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Yellow, FString::Printf(TEXT("Score: %"), m_PlayerDeathCount));
 }
